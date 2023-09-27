@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "express": "^4.18.2",
-    "csv-parser": "3.0.0"
+    "csv-parser": "3.0.0",
+    "axios": "^1.5.1"
   },
   "name": "backend",
   "version": "1.0.0",

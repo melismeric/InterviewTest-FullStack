@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="UTF-8">
-<title>Born Coding Challenge</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="">
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+
 <style>
     input[type=text], select {
       width: 100%;
@@ -24,19 +23,20 @@
       display: inline-block;
       font-size: 16px;
       margin: 6px 0px;
-      width: 100%;
       cursor: pointer;
       border: 3px solid #3e8ed491;
-
     }
-    
+
     div {
       border-radius: 5px;
       background-color: #75aad991;
       padding: 20px;
     }
-    
-    
+
+    .text {
+        font-size: 24px;
+    } 
+
     .center {
         margin: auto;
         width: 50%;
@@ -50,18 +50,19 @@
     }
     </style>
 
-
 <body>
-
     <div class="center">
-        <h1>Current Temperature</h1>
-        <form action="/search" method="POST">
-            <label for="searchQuery">Enter a City:</label>
-            <input type="text" id="searchQuery" name="q" placeholder="Enter your search query" required>
-            <button class="button">Search</button>
-        </form>
+        <h1>Search Results</h1>
+        <ul id="results-list" class="text">
+            <!-- Search results will be inserted here -->
+        </ul>
+        <button class="button" id="back-button">Back</button>
+
+        <script>
+            document.getElementById('back-button').addEventListener('click', () => {
+                window.location.href = '/'; // Redirect back to the search page
+            });
+        </script>
     </div>
-
 </body>
-
 </html>
