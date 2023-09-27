@@ -52,26 +52,25 @@ app.post('/search', async (req, res) => {
   console.log(req.body.q);
   const searchedCity = req.body.q;
   searchCity(searchedCity, async (results) => {
-      res.setHeader('Content-Type', 'text/html');
-      const templatePath = path.join(path.dirname(__dirname), 'frontend', 'search-result.html');
-      const template = fs.readFileSync(templatePath, 'utf8');
+    res.setHeader('Content-Type', 'text/html');
+    const templatePath = path.join(path.dirname(__dirname), 'frontend', 'search-result.html');
+    const template = fs.readFileSync(templatePath, 'utf8');
 
-      if (results.length > 0) {
-          const resultListPromises = results.map(async result => {
-              const temperature = await getTemperature(result.lat, result.lng);
-              return `<li>City: ${result.city}, Temperature: ${temperature}°C</li>`;
-          });
+    if (results.length > 0) {
+      const result = results[0]; // Use the first result
 
-          const resultList = await Promise.all(resultListPromises);
+      const temperature = await getTemperature(result.lat, result.lng);
 
-          const html = template
-              .replace('<!-- Search results will be inserted here -->', resultList.join(''))
-              .replace('</body>', '<script>document.getElementById("back-button").addEventListener("click", () => { window.location.href = "/"; });</script></body>');
+      const resultHtml = `City: ${result.city}, Temperature: ${temperature}°C`;
 
-          res.send(html);
-      } else {
-          res.send(`<p>No results found for "${searchedCity}"</p>`);
-      }
+      const html = template
+        .replace('<!-- Search results will be inserted here -->', resultHtml)
+        .replace('</body>', '<script>document.getElementById("back-button").addEventListener("click", () => { window.location.href = "/"; });</script></body>');
+
+      res.send(html);
+    } else {
+      res.send(`<p>No results found for "${searchedCity}"</p>`);
+    }
   });
 });
 
