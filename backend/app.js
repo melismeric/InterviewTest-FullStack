@@ -42,9 +42,9 @@ async function getTemperature(latitude, longitude) {
     } else {
         throw new Error('Temperature data not found in the API response');
     }
-} catch (error) {
-    throw error;
-}
+  } catch (error) {
+      throw error;
+  }
 
 }
 
