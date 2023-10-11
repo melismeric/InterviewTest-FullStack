@@ -7,7 +7,7 @@ const csv = require('csv-parser');
 const axios = require('axios'); 
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
+//app.use(express.static(__dirname));
 
 const filePath = path.join(path.dirname(__dirname)+ '/data/gb.csv');
 
@@ -48,9 +48,9 @@ async function getTemperature(latitude, longitude) {
 
 }
 
-app.post('/search', async (req, res) => {
-  console.log(req.body.q);
-  const searchedCity = req.body.q;
+app.get('/search', async (req, res) => {
+  console.log(req.query.q);
+  const searchedCity = req.query.q;
   searchCity(searchedCity, async (results) => {
     res.setHeader('Content-Type', 'text/html');
     const templatePath = path.join(path.dirname(__dirname), 'frontend', 'search-result.html');
